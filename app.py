@@ -326,9 +326,9 @@ def main() -> None:
                 r"\textcolor{#8E44AD}{\beta_0} + "
                 r"\textcolor{#27AE60}{\beta_1\left(\frac{Scope 1}{Revenue}"
                 r"\right)_i} + "
-                r"\textcolor{#C0392B}{\beta_2(\ln(Market Cap_i))} \\ + "
-                r"\textcolor{#C0392B}{\beta_3\left(\frac{EBITDA}{Revenue}"
-                r"\right)_i + \alpha_{Sector}} + \epsilon_i"
+                r"\textcolor{#C0392B}{\beta_2(\ln(Market Cap_i)) + "
+                r"\beta_3\left(\frac{EBITDA}{Revenue}\right)_i + "
+                r"\alpha_{Sector}} + \epsilon_i"
             )
             st.markdown(
                 """
