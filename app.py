@@ -345,21 +345,48 @@ def main() -> None:
         )
 
     with stress_test_tab:
-        st.markdown("### ⚙️ Stress Test Configurations")
-        tax_rate = st.slider(
-            "Hypothetical Carbon Tax ($/Metric Ton)",
-            min_value=0,
-            max_value=150,
-            value=65,
-            step=5,
-            format="$%d / ton",
-            help=(
-                "Simulate how future regulatory pricing compresses current "
-                "corporate EBITDA margins based on their raw Scope 1 "
-                "emissions."
-            ),
-        )
-        st.divider()
+        with st.container(border=True):
+            st.markdown("### ⚙️ Stress Test Configurations")
+            col_slider, col_status = st.columns([1.2, 1])
+
+            with col_slider:
+                tax_rate = st.slider(
+                    "Hypothetical Carbon Tax ($/Metric Ton)",
+                    min_value=0,
+                    max_value=150,
+                    value=65,
+                    step=5,
+                    help=(
+                        "Simulate how future regulatory pricing compresses "
+                        "current corporate EBITDA margins based on their raw "
+                        "Scope 1 emissions."
+                    ),
+                )
+
+            with col_status:
+                if tax_rate == 0:
+                    scenario_desc = (
+                        "🟩 **Status Quo:** Current US regulatory framework. "
+                        "No carbon pricing penalty."
+                    )
+                elif tax_rate <= 40:
+                    scenario_desc = (
+                        "🟨 **Conservative Pricing:** Minimal policy "
+                        "intervention. Low regulatory pressure."
+                    )
+                elif tax_rate <= 80:
+                    scenario_desc = (
+                        "🟧 **Baseline Shock Scenario:** Aligns with EPA "
+                        "Social Cost of Carbon and IMF targets."
+                    )
+                else:
+                    scenario_desc = (
+                        "🟥 **Aggressive Transition:** Stringent climate "
+                        "policy matching top-tier European carbon markets."
+                    )
+
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.info(scenario_desc)
 
         st.subheader("Transition Risk Stress Test")
         selected_sector = st.radio(
