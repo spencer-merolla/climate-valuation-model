@@ -180,24 +180,6 @@ def main() -> None:
         )
         st.stop()
 
-    st.sidebar.header("⚙️ Model Controls")
-    tax_rate = st.sidebar.slider(
-        "Hypothetical Carbon Tax ($/Metric Ton)",
-        min_value=0,
-        max_value=150,
-        value=65,
-        step=5,
-        format="$%d / ton",
-        help=(
-            "Simulates a direct regulatory penalty applied to every metric "
-            "ton of Scope 1 emissions."
-        ),
-    )
-    st.sidebar.caption(
-        "Adjust this slider to simulate how future regulatory pricing "
-        "compresses current EBITDA margins."
-    )
-    st.sidebar.divider()
     st.sidebar.subheader("📖 About this Engine")
     st.sidebar.markdown(
         "This tool aggregates US EPA facility-level Scope 1 emissions and "
@@ -363,6 +345,22 @@ def main() -> None:
         )
 
     with stress_test_tab:
+        st.markdown("### ⚙️ Stress Test Configurations")
+        tax_rate = st.slider(
+            "Hypothetical Carbon Tax ($/Metric Ton)",
+            min_value=0,
+            max_value=150,
+            value=65,
+            step=5,
+            format="$%d / ton",
+            help=(
+                "Simulate how future regulatory pricing compresses current "
+                "corporate EBITDA margins based on their raw Scope 1 "
+                "emissions."
+            ),
+        )
+        st.divider()
+
         st.subheader("Transition Risk Stress Test")
         selected_sector = st.radio(
             "Navigate by Sector:",
@@ -427,7 +425,8 @@ Financial markets are notoriously slow to price in unprecedented regulatory shif
         if tax_rate == 0:
             st.info(
                 "👈 **No Tax Applied:** Adjust the Carbon Tax slider in the "
-                "sidebar to simulate EBITDA compression."
+                "stress-test configuration above to simulate EBITDA "
+                "compression."
             )
 
         stress_figure = px.treemap(
