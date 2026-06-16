@@ -218,7 +218,7 @@ def main() -> None:
     carbon_p_value = model.pvalues["Carbon_Intensity"]
 
     market_tab, stress_test_tab = st.tabs(
-        ["📈 Market Reality", "🚨 Transition Risk Stress Test"]
+        ["📈 Market Reality", "📉 Transition Risk Stress Test"]
     )
 
     with market_tab:
